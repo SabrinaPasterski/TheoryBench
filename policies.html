@@ -1,0 +1,128 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>TheoryBench — Policies</title>
+  <style>
+    :root {
+      --sans:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;
+      --mono:'SF Mono',ui-monospace,Menlo,Consolas,monospace;
+      --bg:#ffffff; --panel:#f8f9fa; --line:#e5e7eb; --line-soft:#f0f0f0;
+      --ink:#18181b; --muted:#52525b; --faint:#71717a;
+      --accent:#5d1fb8; --accent-strong:#46168f; --accent-soft:#efe7fb; --accent-line:#e3d6f6;
+      --star:#ffd34d; --radius:8px;
+    }
+    * { box-sizing:border-box; }
+    body { margin:0; color:var(--ink); font:14px/1.55 var(--sans); background:var(--bg); min-height:100vh; display:flex; flex-direction:column; }
+    a { color:inherit; }
+    .nav { display:flex; align-items:center; gap:14px; height:52px; padding:0 24px; border-bottom:1px solid var(--line); }
+    .brand-mark { display:inline-flex; align-items:center; color:var(--accent-strong); font:700 16px/1 var(--sans); text-decoration:none; }
+    .beta-tag { display:inline-flex; align-items:center; gap:4px; font:600 9px/1 var(--mono); letter-spacing:.06em; text-transform:uppercase; color:var(--accent); background:var(--accent-soft); padding:3px 6px; border-radius:5px; }
+    .beta-tag .star { color:var(--star); font-size:17px; line-height:.8; transform:translateY(-.5px); }
+    .nav .spacer { flex:1; }
+    .nav a.navlink { color:var(--muted); text-decoration:none; font:500 13px var(--sans); padding:0 4px; }
+    .nav a.navlink:hover { color:var(--ink); }
+    .wrap { max-width:860px; width:100%; margin:0 auto; padding:48px 24px 52px; }
+    h1 { margin:0 0 12px; font:700 34px/1.15 var(--sans); letter-spacing:-0.02em; }
+    .lede { margin:0; color:var(--muted); font-size:15.5px; line-height:1.6; max-width:66ch; }
+    .section-label { margin:38px 0 14px; font:700 11px var(--mono); letter-spacing:.09em; text-transform:uppercase; color:var(--accent-strong); }
+    .grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:14px; }
+    .card { border:1px solid var(--line); border-radius:var(--radius); background:var(--panel); padding:16px 17px; }
+    .card h3 { margin:0 0 7px; font:700 15px var(--sans); }
+    .card p, .card li { color:var(--muted); font-size:13.5px; line-height:1.55; }
+    .card p { margin:0; }
+    .card ul { margin:0; padding-left:18px; }
+    footer { margin-top:auto; border-top:1px solid var(--line); padding:7px 28px; color:var(--faint); font-size:12px; text-align:center; }
+    footer a { color:var(--faint); text-decoration:none; margin:0 6px; }
+    footer a:hover { color:var(--accent); }
+    @media (max-width:700px) { .grid { grid-template-columns:1fr; } }
+  </style>
+</head>
+<body>
+  <nav class="nav">
+    <a class="brand-mark" href="index.html">Theory<span style="color:var(--accent-strong)">Bench</span></a>
+    <span class="beta-tag"><span class="star">✦</span>beta</span>
+    <span class="spacer"></span>
+    <a class="navlink" href="about.html">About</a>
+    <a class="navlink" href="manager.html">Launch</a>
+  </nav>
+
+  <main class="wrap">
+    <h1>Policies and requirements</h1>
+    <p class="lede">
+      Private work stays local by default. Export, sync, and model routes should
+      be explicit project choices.
+    </p>
+
+    <p class="section-label">Local-first policy</p>
+    <div class="grid">
+      <div class="card">
+        <h3>Project data</h3>
+        <p>Source, figures, notebooks, outputs, and traces live in the desktop checkout by
+        default. Overleaf/Git sync can version ordinary paper files; private sidecars stay explicit.</p>
+      </div>
+      <div class="card">
+        <h3>Model routing</h3>
+        <p>Claude and Codex use the user's configured account paths. The UI should label when
+        a review used a CLI, API key, or no model route.</p>
+      </div>
+      <div class="card">
+        <h3>Compute routing</h3>
+        <p>Python and Wolfram execution happens through the local bridge unless a future project
+        explicitly chooses a trusted remote or sandboxed route.</p>
+      </div>
+      <div class="card">
+        <h3>Sharing</h3>
+        <p>Overleaf handles the live collaborator workspace. TheoryBench adds local compute,
+        selected traces, compiled artifacts, and read-only bundles when requested.</p>
+      </div>
+    </div>
+
+    <p class="section-label">Software and license requirements</p>
+    <div class="grid">
+      <div class="card">
+        <h3>TeX</h3>
+        <ul>
+          <li>Requires a local TeX install such as TeX Live or MacTeX.</li>
+          <li>Local package versions can differ from Overleaf.</li>
+          <li>Engine selection and BibTeX/Biber support should be explicit.</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>Wolfram</h3>
+        <ul>
+          <li>Requires Mathematica, Wolfram Engine, or another configured kernel route.</li>
+          <li>A local license or activation is the user's responsibility.</li>
+          <li>Wolfram Cloud support is a possible route, not the default assumption.</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>Python</h3>
+        <ul>
+          <li>Uses the local Python environment available to the bridge.</li>
+          <li>Project packages should be reported clearly when missing.</li>
+          <li>Cell state and provenance should stay document-scoped.</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>Accounts</h3>
+        <ul>
+          <li>Overleaf Git or Overleaf GitHub sync is the primary paper collaboration route.</li>
+          <li>GitHub Desktop can manage the local checkout when GitHub sync is used.</li>
+          <li>Claude, Codex/OpenAI, and Wolfram account connections are optional tool routes.</li>
+          <li>OAuth should be scoped to sync or sharing targets, not broad project upload.</li>
+          <li>No account should imply permission to upload or run arbitrary collaborator code.</li>
+        </ul>
+      </div>
+    </div>
+  </main>
+
+  <footer>
+    <a href="about.html">About</a> ·
+    <a href="how-it-works.html">How it Works</a> ·
+    <a href="policies.html">Policies</a> ·
+    <a href="contact.html">Contact</a>
+  </footer>
+</body>
+</html>

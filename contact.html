@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>TheoryBench — Contact</title>
+  <style>
+    :root {
+      --sans:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;
+      --mono:'SF Mono',ui-monospace,Menlo,Consolas,monospace;
+      --bg:#ffffff; --panel:#f8f9fa; --line:#e5e7eb; --line-soft:#f0f0f0;
+      --ink:#18181b; --muted:#52525b; --faint:#71717a;
+      --accent:#5d1fb8; --accent-strong:#46168f; --accent-soft:#efe7fb; --accent-line:#e3d6f6;
+      --star:#ffd34d; --radius:8px;
+    }
+    * { box-sizing:border-box; }
+    body { margin:0; color:var(--ink); font:14px/1.55 var(--sans); background:var(--bg); min-height:100vh; display:flex; flex-direction:column; }
+    a { color:inherit; }
+    .nav { display:flex; align-items:center; gap:14px; height:52px; padding:0 24px; border-bottom:1px solid var(--line); }
+    .brand-mark { display:inline-flex; align-items:center; color:var(--accent-strong); font:700 16px/1 var(--sans); text-decoration:none; }
+    .beta-tag { display:inline-flex; align-items:center; gap:4px; font:600 9px/1 var(--mono); letter-spacing:.06em; text-transform:uppercase; color:var(--accent); background:var(--accent-soft); padding:3px 6px; border-radius:5px; }
+    .beta-tag .star { color:var(--star); font-size:17px; line-height:.8; transform:translateY(-.5px); }
+    .nav .spacer { flex:1; }
+    .nav a.navlink { color:var(--muted); text-decoration:none; font:500 13px var(--sans); padding:0 4px; }
+    .nav a.navlink:hover { color:var(--ink); }
+    .wrap { max-width:680px; width:100%; margin:0 auto; padding:52px 24px; }
+    h1 { margin:0 0 12px; font:700 34px/1.15 var(--sans); letter-spacing:-0.02em; }
+    p { margin:0 0 16px; color:var(--muted); font-size:15px; line-height:1.6; max-width:54ch; }
+    .panel { max-width:54ch; margin-top:22px; border:1px solid var(--line); border-radius:var(--radius); background:var(--panel); padding:18px; }
+    .panel h2 { margin:0 0 8px; font:700 16px var(--sans); }
+    .panel ul { margin:0; padding-left:18px; color:var(--muted); font-size:13.5px; line-height:1.6; }
+    footer { margin-top:auto; border-top:1px solid var(--line); padding:7px 28px; color:var(--faint); font-size:12px; text-align:center; }
+    footer a { color:var(--faint); text-decoration:none; margin:0 6px; }
+    footer a:hover { color:var(--accent); }
+  </style>
+</head>
+<body>
+  <nav class="nav">
+    <a class="brand-mark" href="index.html">Theory<span style="color:var(--accent-strong)">Bench</span></a>
+    <span class="beta-tag"><span class="star">✦</span>beta</span>
+    <span class="spacer"></span>
+    <a class="navlink" href="about.html">About</a>
+    <a class="navlink" href="manager.html">Launch</a>
+  </nav>
+
+  <main class="wrap">
+    <h1>Contact</h1>
+    <p>
+      TheoryBench is in beta. If you try it with a real paper, tell us what felt
+      smooth, what broke, and what a collaborator would need to see.
+    </p>
+    <p>
+      Write to <a href="mailto:contact@ai4theory.org">contact@ai4theory.org</a>.
+    </p>
+
+    <div class="panel">
+      <h2>Helpful details</h2>
+      <ul>
+        <li>Your operating system and TeX setup.</li>
+        <li>Which local tools you expected to use: Python, Wolfram, Claude, or Codex.</li>
+        <li>Where the project lives now: Overleaf, Git, Dropbox, or a local folder.</li>
+        <li>What you wanted a colleague to view, comment on, edit, or run.</li>
+      </ul>
+    </div>
+  </main>
+
+  <footer>
+    <a href="about.html">About</a> ·
+    <a href="how-it-works.html">How it Works</a> ·
+    <a href="policies.html">Policies</a> ·
+    <a href="contact.html">Contact</a>
+  </footer>
+</body>
+</html>

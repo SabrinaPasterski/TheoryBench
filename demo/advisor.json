@@ -1,0 +1,34 @@
+{
+  "review": {
+    "via": "recorded session (your Claude account)",
+    "findings": [
+      {
+        "type": "sign",
+        "anchor": "line 28: `+ D^z C_{zz}\\,\\dd u\\,\\dd z`",
+        "message": "Standard Bondi-gauge expansion gives g_{uz} = -\u00bd D^z C_{zz} at leading order (see e.g. He\u2013Mitra\u2013Strominger 1503.02981 eq. 2.2), so the ds\u00b2 contribution is \u2212D^z C_{zz} du dz. The dossier carries a + sign, which is a sign flip on both the dz and d\\bar{z} cross-terms.",
+        "confidence": "medium",
+        "needs_tool": false
+      }
+    ]
+  },
+  "qa": [
+    {
+      "match": [
+        "mellin",
+        "gamma",
+        "pole"
+      ],
+      "answer": "The poles follow directly from the IR behavior of the integrand. Split the Mellin integral at some finite $\\omega_0$; the UV piece is analytic, so all poles come from the lower limit. If the amplitude (or mode operator) admits a soft expansion\n\n$$a(\\omega) \\;\\sim\\; \\sum_{n\\geq n_{\\min}} a_n\\,\\omega^n \\quad (\\omega\\to 0),$$\n\nthen $\\int_0^{\\omega_0} d\\omega\\,\\omega^{\\Delta-1}\\cdot\\omega^n = \\omega_0^{\\Delta+n}/(\\Delta+n)$, giving a simple pole at $\\Delta = -n$ for each term present. For a graviton, Weinberg's soft theorem forces $a(\\omega)$ to start at $\\omega^{-1}$, so the series of poles runs $\\Delta = 1, 0, -1, -2,\\ldots$ \u2014 exactly the conformally soft points your text mentions at the end of the dossier excerpt.\n\n**Physically**, each pole is a soft theorem in disguise. Taking $\\text{Res}_{\\Delta=1-n}\\,\\mathcal{O}_\\Delta$ isolates the $\\omega^{n-1}$ mode of $a$:\n\n| pole | soft mode | symmetry |\n|------|-----------|----------|\n| $\\Delta=1$ | $\\omega^{-1}$ (leading) | supertranslations / Weinberg |\n| $\\Delta=0$ | $\\omega^{0}$ (subleading) | superrotations / Virasoro |\n| $\\Delta=-1$ | $\\omega^{+1}$ (sub-subleading) | $w_{1+\\infty}$ charges |\n\nSo the poles are not pathologies \u2014 they are the dictionary between the $\\omega$-expansion of soft factors and the $\\Delta$-plane. The Mellin transform converts \"take $\\omega\\to 0$ at order $n$\" into \"take the residue at $\\Delta=1-n$,\" and each residue operator is the celestial avatar of the corresponding asymptotic symmetry generator."
+    },
+    {
+      "match": [
+        "soft",
+        "ward",
+        "supertranslation",
+        "sign"
+      ],
+      "answer": "The argument has three steps.\n\n**1. Split the charge and expand the Ward identity.**\nWrite $Q_f = Q_f^{\\text{soft}} + Q_f^{\\text{hard}}$ and expand\n$$\\langle\\text{out}|(Q_f^+ S - S Q_f^-)|\\text{in}\\rangle = 0$$\ninto a soft piece and a hard piece. Rearranging:\n$$\\langle\\text{out}|Q_f^{\\text{soft}} S|\\text{in}\\rangle = -\\langle\\text{out}|(Q_f^{\\text{hard},+} S - S\\,Q_f^{\\text{hard},-})|\\text{in}\\rangle.$$\n\n**2. Hard piece \u2192 Weinberg pole (right-hand side of eq 2).**\n$Q_f^{\\text{hard}}$ generates a supertranslation $u \\mapsto u + f(z,\\bar z)$ on asymptotic particle data. Acting on an outgoing massless particle at angle $z_k$ with energy $E_k$, it contributes $f(z_k)E_k$; incoming particles contribute with opposite sign. Summing over all external legs and using the explicit form of the BMS action on momenta, the right-hand side evaluates to\n$$\\frac{\\kappa}{2}\\sum_k \\frac{\\varepsilon_{\\mu\\nu}p_k^\\mu p_k^\\nu}{\\hat q\\cdot p_k}\\,\\mathcal{M}_n.$$\nThe factor $\\hat q\\cdot p_k$ in the denominator comes from the momentum-space form of the BMS generator acting on a plane wave \u2014 this is the Weinberg pole.\n\n**3. Soft piece \u2192 $\\omega\\,\\mathcal{M}_{n+1}$ (left-hand side of eq 2).**\n$Q_f^{\\text{soft}}$ is built from the Bondi news: schematically\n$$Q_f^{\\text{soft}} \\sim \\int d^2z\\;\\partial_z f\\;\\partial_{\\bar z}\\!\\int_{-\\infty}^{+\\infty} du\\;N_{zz},$$\n(after integrating by parts in $u$ using $N_{zz}=\\partial_u C_{zz}$). The mode expansion of $C_{zz}$ at $\\mathscr{I}^+$ contains graviton creation/annihilation operators at all frequencies; the $u$-integral projects onto the $\\omega\\to 0$ mode. So $\\langle\\text{out}|Q_f^{\\text{soft}}S|\\text{in}\\rangle$ is the $n+1$-point amplitude with one additional graviton of polarization $\\varepsilon_{\\mu\\nu}$ and energy $\\omega\\to 0$, i.e.\\ $\\lim_{\\omega\\to 0}\\,\\omega\\,\\mathcal{M}_{n+1}(\\omega\\hat q;\\{p_k\\})$.\n\n**Putting it together.** Equating the two sides gives exactly eq (2). The $\\omega$ prefactor on the left cancels the $1/\\omega$ that would otherwise diverge, leaving a finite Weinberg residue equal to the momentum-space BMS action on the $n$-point amplitude on the right.\n\nThe one subtlety worth flagging: the equality of soft charge insertion and soft graviton insertion relies on the canonical commutation relations for $C_{zz}$ at $\\mathscr{I}^+$, which follow from the bulk graviton propagator evaluated near the boundary \u2014 if your document works this out in the computation cell section, that's where those $\\{C_{zz}, N_{z'z'}\\}$ brackets live."
+    }
+  ],
+  "fallback": "This is a recorded demo session \u2014 try asking about the Mellin poles or the soft theorem, or download TheoryBench to ask about your own paper."
+}

@@ -1,0 +1,200 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>TheoryBench — the physicist's working room</title>
+  <style>
+    :root {
+      /* Inherited from project.html: zinc neutrals + ONE violet accent. */
+      --sans:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;
+      --mono:'SF Mono',ui-monospace,Menlo,Consolas,monospace;
+      --bg:#ffffff; --panel:#f8f9fa; --line:#e5e7eb; --line-soft:#f0f0f0;
+      --ink:#18181b; --muted:#52525b; --faint:#71717a;
+      --accent:#5d1fb8; --accent-strong:#46168f; --accent-deep:#34106b; --accent-soft:#efe7fb; --accent-line:#e3d6f6;
+      --star:#ffd34d;
+      --radius:7px;
+    }
+    * { box-sizing:border-box; }
+    body { margin:0; color:var(--ink); font:14px/1.55 var(--sans); background:var(--bg); -webkit-font-smoothing:antialiased; min-height:100vh; display:flex; flex-direction:column; }
+    a { color:inherit; }
+    ::selection { background:rgba(93,31,184,.22); }
+    :focus-visible { outline:2px solid var(--accent); outline-offset:2px; border-radius:4px; }
+
+    /* top bar — mirrors the app's brand-mark */
+    .nav { display:flex; align-items:center; gap:14px; height:52px; padding:0 24px; border-bottom:1px solid var(--line); }
+    .brand-mark { display:inline-flex; align-items:center; color:var(--accent-strong); font:700 16px/1 var(--sans); letter-spacing:0; }
+    .beta-tag { display:inline-flex; align-items:center; gap:4px; align-self:center; font:600 9px/1 var(--mono); letter-spacing:.06em; text-transform:uppercase; color:var(--accent); background:var(--accent-soft); padding:3px 6px; border-radius:5px; }
+    .beta-tag .star { color:var(--star); font-size:17px; line-height:.8; transform:translateY(-.5px); }
+    .nav .spacer { flex:1; }
+    .nav a.navlink { color:var(--muted); text-decoration:none; font:500 13px var(--sans); padding:0 4px; }
+    .nav a.navlink:hover { color:var(--ink); }
+
+    .btn { display:inline-flex; align-items:center; gap:7px; height:38px; padding:0 18px; border-radius:8px; border:1px solid var(--line); background:#fff; color:var(--ink); font:600 14px var(--sans); text-decoration:none; cursor:pointer; }
+    .btn:hover { background:var(--line-soft); }
+    .btn.primary { border-color:var(--accent); background:var(--accent); color:#fff; }
+    .btn.primary:hover { background:var(--accent-strong); border-color:var(--accent-strong); }
+    .btn.sm { height:32px; padding:0 13px; font-size:13px; border-radius:7px; }
+
+    /* hero */
+    .hero { max-width:1040px; margin:0 auto; padding:56px 24px 24px; display:grid; grid-template-columns:1fr 360px; gap:40px; align-items:center; }
+    .hero .copy { padding-top:22px; }
+    .hero .copy h1 { margin:0 0 16px; font:700 38px/1.12 var(--sans); letter-spacing:-0.02em; color:var(--ink); }
+    .hero .copy h1 .accent { color:var(--accent-strong); }
+    .hero .copy p.lede { margin:0 0 26px; font-size:16.5px; line-height:1.6; color:var(--muted); max-width:30em; text-align:justify; }
+    .hero .cta { display:flex; gap:12px; flex-wrap:wrap; margin-top:8px; transform:translateY(28px); }
+
+    .mascot-wrap { display:flex; justify-content:center; }
+    /* Swappable mascot: replace this single <svg> (or drop in <img src=...>) without touching layout. */
+    .mascot { width:330px; height:auto; display:block; }
+
+    /* pillars */
+    .pillars { max-width:1040px; margin:0 auto; padding:18px 24px 64px; display:grid; grid-template-columns:repeat(4,1fr); gap:16px; }
+    .pillar { border:1px solid var(--line); border-radius:var(--radius); padding:16px 16px 18px; background:var(--panel); }
+    .pillar h3 { margin:0 0 6px; font:600 12px var(--mono); letter-spacing:.01em; color:var(--accent-strong); }
+    .pillar p { margin:0; font-size:13px; line-height:1.5; color:var(--muted); text-align:justify; }
+
+    footer { margin-top:auto; border-top:1px solid var(--line); padding:7px 28px; color:var(--faint); font-size:12px; text-align:center; }
+    footer a { color:var(--faint); text-decoration:none; margin:0 6px; }
+    footer a:hover { color:var(--accent); }
+
+    @media (max-width:840px) {
+      .hero { grid-template-columns:1fr; text-align:center; padding-top:40px; }
+      .hero .copy p.lede { margin-left:auto; margin-right:auto; }
+      .hero .cta { justify-content:center; }
+      .mascot-wrap { order:-1; }
+      .pillars { grid-template-columns:repeat(2,1fr); }
+    }
+    @media (max-width:520px) { .pillars { grid-template-columns:1fr; } .hero .copy h1 { font-size:32px; } }
+  </style>
+</head>
+<body>
+  <nav class="nav">
+    <a class="brand-mark" href="index.html" style="text-decoration:none">Theory<span style="color:var(--accent-strong)">Bench</span></a>
+    <span class="beta-tag"><span class="star">✦</span>beta</span>
+    <span class="spacer"></span>
+    <a class="navlink" href="about.html">About</a>
+    <a class="navlink" href="manager.html">Launch</a>
+  </nav>
+
+  <section class="hero">
+    <div class="copy">
+      <h1>A <span class="accent">unified workflow</span> should be easier than a unified theory.</h1>
+      <p class="lede">
+        TheoryBench integrates your existing tools into a single app. Built by physicists who want
+        AI to <span style="color:var(--accent-strong);font-weight:600">support you</span>, not take over the work.
+      </p>
+      <div class="cta">
+        <a class="btn primary" href="project.html?demo=1">Preview Project</a>
+        <a class="btn" href="how-it-works.html">How it Works</a>
+      </div>
+    </div>
+
+    <div class="mascot-wrap">
+      <!-- ====== Theoria mascot (single swappable block) ====== -->
+      <svg class="mascot" viewBox="0 0 320 350" role="img" aria-label="Theoria, the patron AI of theory, sitting with a belly screen">
+        <defs>
+          <radialGradient id="body" cx="40%" cy="28%" r="84%">
+            <stop offset="0%" stop-color="#915ce8"/>
+            <stop offset="52%" stop-color="#5d1fb8"/>
+            <stop offset="100%" stop-color="#3f1382"/>
+          </radialGradient>
+          <radialGradient id="tummy" cx="50%" cy="42%" r="66%">
+            <stop offset="0%" stop-color="#a877ee"/>
+            <stop offset="100%" stop-color="#7639d0"/>
+          </radialGradient>
+          <radialGradient id="sheen" cx="50%" cy="50%" r="50%">
+            <stop offset="0%" stop-color="#ffffff" stop-opacity=".55"/>
+            <stop offset="100%" stop-color="#ffffff" stop-opacity="0"/>
+          </radialGradient>
+          <radialGradient id="screen" cx="50%" cy="36%" r="72%">
+            <stop offset="0%" stop-color="#2a1850"/>
+            <stop offset="100%" stop-color="#140a28"/>
+          </radialGradient>
+        </defs>
+
+        <!-- ground shadow -->
+        <ellipse cx="160" cy="334" rx="98" ry="14" fill="#3f1382" opacity=".10"/>
+
+        <!-- sparkle stars -->
+        <g fill="var(--star)"><path d="M40 100 l4.5 11 11 4.5 -11 4.5 -4.5 11 -4.5 -11 -11 -4.5 11 -4.5 z" opacity=".8"/><path d="M284 112 l4 10 10 4 -10 4 -4 10 -4 -10 -10 -4 10 -4 z" opacity=".75"/></g>
+
+        <!-- star antenna -->
+        <path d="M160 100 C157 84 158 76 160 68" stroke="#5d1fb8" stroke-width="6" fill="none" stroke-linecap="round"/>
+        <path d="M160 36 l7 18 18 7 -18 7 -7 18 -7 -18 -18 -7 18 -7 z" fill="var(--star)" stroke="#f0b400" stroke-width="2" stroke-linejoin="round"/>
+
+        <!-- ears -->
+        <path d="M110 116 C100 88 126 80 138 112 z" fill="#5d1fb8"/>
+        <path d="M210 116 C220 88 194 80 182 112 z" fill="#5d1fb8"/>
+
+        <!-- arms: one blob each, pointing down and out (behind body) -->
+        <ellipse cx="94" cy="262" rx="18" ry="40" transform="rotate(44 94 262)" fill="url(#body)"/>
+        <ellipse cx="226" cy="262" rx="18" ry="40" transform="rotate(-44 226 262)" fill="url(#body)"/>
+
+        <!-- body -->
+        <ellipse cx="160" cy="206" rx="104" ry="104" fill="url(#body)"/>
+        <ellipse cx="160" cy="226" rx="76" ry="76" fill="url(#tummy)" opacity=".62"/>
+        <ellipse cx="122" cy="158" rx="48" ry="34" fill="url(#sheen)"/>
+
+        <!-- belly screen -->
+        <rect x="123" y="234" width="74" height="66" rx="13" fill="url(#screen)"/>
+        <g fill="#6a4fb0" opacity=".85">
+          <rect x="137" y="250" width="46" height="3.5" rx="1.75"/>
+          <rect x="137" y="261" width="46" height="3.5" rx="1.75"/>
+          <rect x="137" y="272" width="34" height="3.5" rx="1.75"/>
+          <rect x="137" y="283" width="40" height="3.5" rx="1.75"/>
+        </g>
+
+        <!-- feet -->
+        <ellipse cx="124" cy="312" rx="30" ry="18" fill="#5d1fb8"/>
+        <ellipse cx="196" cy="312" rx="30" ry="18" fill="#5d1fb8"/>
+        <ellipse cx="124" cy="315" rx="15" ry="8" fill="#a877ee" opacity=".6"/>
+        <ellipse cx="196" cy="315" rx="15" ry="8" fill="#a877ee" opacity=".6"/>
+
+        <!-- eyes -->
+        <ellipse cx="132" cy="180" rx="28" ry="33" fill="#fff"/>
+        <ellipse cx="188" cy="180" rx="28" ry="33" fill="#fff"/>
+        <circle cx="138" cy="187" r="15.5" fill="#1c1030"/>
+        <circle cx="182" cy="187" r="15.5" fill="#1c1030"/>
+        <circle cx="131" cy="180" r="5.5" fill="#fff"/>
+        <circle cx="175" cy="180" r="5.5" fill="#fff"/>
+
+        <!-- cheeks -->
+        <ellipse cx="104" cy="210" rx="18" ry="12" fill="#ff8fd0" opacity=".5"/>
+        <ellipse cx="216" cy="210" rx="18" ry="12" fill="#ff8fd0" opacity=".5"/>
+
+        <!-- smile + little tooth -->
+        <path d="M148 216 Q160 230 172 216" stroke="#1c1030" stroke-width="4.5" fill="none" stroke-linecap="round"/>
+        <path d="M155 221 l5 9 5 -9 z" fill="#fff"/>
+      </svg>
+      <!-- ====== /mascot ====== -->
+    </div>
+  </section>
+
+  <section class="pillars">
+    <div class="pillar">
+      <h3>Overleaf Git sync</h3>
+      <p>Work on a local Git checkout; pull and push while collaborators stay in Overleaf.</p>
+    </div>
+    <div class="pillar">
+      <h3>Mathematica + Python</h3>
+      <p>Run Wolfram and Python cells inside the working draft.</p>
+    </div>
+    <div class="pillar">
+      <h3>Theoria advisor</h3>
+      <p>Find references, flag mistakes, and get feedback.</p>
+    </div>
+    <div class="pillar">
+      <h3>Argument + Literature map</h3>
+      <p>Turn notes, equations, cells, and citations into a paper spine.</p>
+    </div>
+  </section>
+
+  <footer>
+    <a href="about.html">About</a> ·
+    <a href="how-it-works.html">How it Works</a> ·
+    <a href="policies.html">Policies</a> ·
+    <a href="contact.html">Contact</a>
+  </footer>
+</body>
+</html>

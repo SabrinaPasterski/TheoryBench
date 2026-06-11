@@ -1,0 +1,125 @@
+\documentclass[11pt]{article}
+\usepackage{amsmath,amssymb,mathrsfs}
+
+\newcommand{\calO}{\mathcal{O}}
+\newcommand{\calM}{\mathcal{M}}
+\newcommand{\ket}[1]{\lvert #1 \rangle}
+\newcommand{\bra}[1]{\langle #1 \rvert}
+\newcommand{\dd}{\mathrm{d}}
+
+\title{Notes on Celestial Holography}
+\author{}
+\date{}
+
+\begin{document}
+\maketitle
+
+\section{Asymptotics and the celestial sphere}
+
+Asymptotically flat metrics near $\mathscr{I}^+$ in Bondi gauge
+$(u,r,z,\bar z)$, with $u=t-r$ retarded time and $(z,\bar z)$
+stereographic coordinates on the sphere, admit the large-$r$ expansion
+\begin{equation}
+\begin{aligned}
+\dd s^2 = {}& -\dd u^2 - 2\,\dd u\,\dd r
+  + 2 r^2 \gamma_{z\bar z}\,\dd z\,\dd\bar z \\
+& + \frac{2 m_B}{r}\,\dd u^2
+  + r C_{zz}\,\dd z^2 + r C_{\bar z\bar z}\,\dd\bar z^2
+  + D^z C_{zz}\,\dd u\,\dd z + D^{\bar z} C_{\bar z\bar z}\,\dd u\,\dd\bar z
+  + \cdots,
+\end{aligned}
+\label{eq:bondi}
+\end{equation}
+where $\gamma_{z\bar z} = 2/(1+z\bar z)^2$ is the round metric, $m_B$
+the Bondi mass aspect, and $C_{zz}$ the free radiative data with news
+$N_{zz} = \partial_u C_{zz}$. The BMS group preserves this falloff:
+supertranslations $u \to u + f(z,\bar z)$ shift $C_{zz}$ by
+$-2 D_z^2 f$, so the vacuum is infinitely degenerate. Bulk scattering
+data organize naturally on the $(z,\bar z)$ sphere at fixed null
+direction --- the celestial sphere --- where Lorentz transformations act
+as global conformal transformations $z \to (az+b)/(cz+d)$.
+
+\section{From soft theorems to currents}
+
+Weinberg's soft graviton theorem, for an $(n{+}1)$-point amplitude with
+one graviton of momentum $q = \omega \hat q$ taken soft (all momenta
+outgoing),
+\begin{equation}
+\lim_{\omega \to 0}\, \omega\, \calM_{n+1}\big(\omega\hat q;\{p_k\}\big)
+ = \frac{\kappa}{2} \sum_{k=1}^{n}
+   \frac{\varepsilon_{\mu\nu}\, p_k^\mu p_k^\nu}{\hat q \cdot p_k}\,
+   \calM_n\big(\{p_k\}\big),
+ \qquad \kappa^2 = 32\pi G,
+\label{eq:soft}
+\end{equation}
+is the Ward identity of supertranslations:
+$\bra{\mathrm{out}} \big( Q_f^+\, S - S\, Q_f^- \big) \ket{\mathrm{in}} = 0$,
+with $Q_f = Q_f^{\rm soft} + Q_f^{\rm hard}$. The soft piece is linear
+in the zero mode of the news and creates a Goldstone of spontaneously
+broken supertranslations; the hard piece reproduces the right-hand side
+of \eqref{eq:soft}. Massless external states are traded for conformal
+primaries via the Mellin transform
+\begin{equation}
+\calO_{\Delta}(z,\bar z)
+ = \int_0^\infty \dd\omega\, \omega^{\Delta-1}\, a(\omega, z, \bar z),
+\label{eq:mellin}
+\end{equation}
+under which amplitudes transform as correlators of operators with
+weights $h = \tfrac12(\Delta+J)$, $\bar h = \tfrac12(\Delta-J)$, and the
+soft theorems sit at the conformally soft points $\Delta = 1, 0, -1,
+\dots$ as poles in $\Delta$.
+
+\section{A computation cell}
+
+The $\Delta$-poles arise from the small-$\omega$ region of
+\eqref{eq:mellin}. The basic integral, regulated by $e^{-\omega}$ (set
+the scale to one), is the Euler representation of $\Gamma(\Delta)$,
+whose poles at $\Delta = 0, -1, -2, \dots$ are exactly where the
+conformally soft modes live. The cell below checks this on the local
+Python kernel; its saved result is \nbresult{mellin-check}.
+
+\begin{nb}[python]{mellin-check}
+import sympy as sp
+E, Delta = sp.symbols('E Delta', positive=True)
+M = sp.integrate(E**(Delta - 1) * sp.exp(-E), (E, 0, sp.oo))
+sp.simplify(M)
+%out: $\Gamma(\Delta)$
+\end{nb}
+
+\section{A shadow integral}
+
+Shadow transforms, $\widetilde\calO_{2-\Delta}(w,\bar w) \propto \int
+\dd^2 z\, |z-w|^{2\Delta-4}\, \calO_\Delta(z,\bar z)$, map celestial
+primaries to weight $2-\Delta$ and are needed, e.g., to build a
+normalizable stress tensor from the subleading soft graviton. After
+Schwinger parametrization the two-dimensional kernel integrals reduce
+to one-dimensional pieces of the form below (Wolfram cell; needs an
+activated local kernel).
+
+\begin{nb}[wolfram]{shadow-integral}
+Integrate[(1 + x^2)^(-Delta), {x, -Infinity, Infinity}, Assumptions -> Delta > 1/2]
+%out: $\sqrt{\pi}\,\dfrac{\Gamma\!\left(\Delta-\tfrac12\right)}{\Gamma(\Delta)}$
+\end{nb}
+
+\help{Check the soft expansion bookkeeping in \eqref{eq:soft}: with all
+momenta outgoing, is the sign of the subleading term consistent with the
+supertranslation Ward identity conventions used above?}
+
+\section{Literature}
+
+The infrared triangle --- soft theorems, asymptotic symmetries, and
+memory effects --- is developed systematically in Strominger's lectures
+\cite{Strominger:2017zoo}. The Mellin dictionary \eqref{eq:mellin}
+recasting four-dimensional $S$-matrix elements as celestial-sphere
+conformal correlators was set up by Pasterski, Shao, and Strominger
+\cite{Pasterski:2016qvg}. For a self-contained review covering
+conformally soft currents, the celestial stress tensor, and
+$w_{1+\infty}$ structure, see Raclariu \cite{Raclariu:2021zjz}.
+Open the \textbf{MAP $\to$ REFERENCES} view to browse these papers and
+INSPIRE's suggested related work; your own projects can be created or
+imported in place from the Projects page (logo, top left).
+
+\bibliographystyle{unsrt}
+\bibliography{refs}
+
+\end{document}

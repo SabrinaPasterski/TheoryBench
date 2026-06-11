@@ -1,0 +1,30 @@
+{
+  "demo": true,
+  "name": "Notes on Celestial Holography",
+  "generated_at": "2026-06-10T03:11:10+00:00",
+  "default_file": "main.tex",
+  "files": [
+    {
+      "path": "main.tex",
+      "kind": "TEX",
+      "url": "demo/files/main.tex"
+    },
+    {
+      "path": "refs.bib",
+      "kind": "BIB",
+      "url": "demo/files/refs.bib"
+    }
+  ],
+  "pdf": {
+    "pages": [
+      "demo/pdf/page-1.png",
+      "demo/pdf/page-2.png",
+      "demo/pdf/page-3.png"
+    ]
+  },
+  "graph": "demo/graph.json",
+  "references": "demo/references.json",
+  "advisor": "demo/advisor.json",
+  "download_url": "downloads/TheoryBench-mac.zip",
+  "health": {}
+}

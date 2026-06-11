@@ -1,0 +1,375 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>TheoryBench — Projects</title>
+  <style>
+    :root {
+      --sans:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;
+      --mono:'SF Mono',ui-monospace,Menlo,Consolas,monospace;
+      --bg:#ffffff; --panel:#f8f9fa; --line:#e5e7eb; --line-soft:#f0f0f0;
+      --ink:#18181b; --muted:#52525b; --faint:#71717a;
+      --accent:#5d1fb8; --accent-strong:#46168f; --accent-soft:#efe7fb; --accent-line:#e3d6f6;
+      --radius:8px;
+    }
+    * { box-sizing:border-box; }
+    body { margin:0; color:var(--ink); font:14px/1.55 var(--sans); background:var(--bg); -webkit-font-smoothing:antialiased; min-height:100vh; display:flex; flex-direction:column; overflow:hidden; }
+    a { color:inherit; }
+    ::selection { background:rgba(93,31,184,.22); }
+
+    .nav { display:flex; align-items:center; gap:14px; height:52px; padding:0 24px; border-bottom:1px solid var(--line); background:#fff; }
+    .brand-mark { display:inline-flex; align-items:center; color:var(--accent-strong); font:700 16px/1 var(--sans); letter-spacing:0; text-decoration:none; }
+    .nav .spacer { flex:1; }
+    .nav a.navlink { color:var(--muted); text-decoration:none; font:500 13px var(--sans); padding:0 4px; }
+    .nav a.navlink:hover { color:var(--ink); }
+    .beta-tag { display:inline-flex; align-items:center; gap:4px; align-self:center; font:600 9px/1 var(--mono); letter-spacing:.06em; text-transform:uppercase; color:var(--accent); background:var(--accent-soft); padding:3px 6px; border-radius:5px; }
+    .beta-tag .star { color:#ffd34d; font-size:17px; line-height:.8; transform:translateY(-.5px); }
+
+    .btn { display:inline-flex; align-items:center; gap:7px; height:32px; padding:0 12px; border-radius:6px; border:1px solid var(--line); background:#fff; color:var(--ink); font:600 12.5px var(--sans); text-decoration:none; cursor:pointer; }
+    .btn:hover { background:var(--line-soft); }
+    .btn.primary { border-color:var(--accent); background:var(--accent); color:#fff; }
+    .btn.primary:hover { background:var(--accent-strong); border-color:var(--accent-strong); }
+
+    /* layout: sidebar + main */
+    .shell { flex:1; display:grid; grid-template-columns:212px minmax(0,1fr); min-height:0; }
+    .side { border-right:1px solid var(--line); padding:14px 0; }
+    .side a { display:flex; align-items:center; justify-content:space-between; gap:8px; padding:7px 16px 7px 24px; border-radius:0; color:var(--muted); text-decoration:none; font:500 13px var(--sans); }
+    .side a:hover { background:var(--panel); color:var(--ink); }
+    /* active highlight matches the workbench tree-row: 4px accent bar + soft fill */
+    .side a.active { background:linear-gradient(90deg,var(--accent) 0 4px,var(--accent-soft) 4px); color:var(--ink); font-weight:650; }
+    .side a .count { font:600 11px var(--mono); color:var(--faint); }
+    .side a.active .count { color:var(--accent-strong); }
+
+    .main { padding:18px 24px 40px; min-width:0; overflow:auto; }
+    .head { display:flex; align-items:center; gap:10px; margin-bottom:14px; width:100%; }
+    .head-title { color:var(--ink); font:650 13px/1 var(--mono); letter-spacing:.065em; text-transform:uppercase; }
+    .head .spacer { flex:1; }
+    .search { width:238px; height:32px; border:1px solid var(--line); border-radius:6px; padding:0 10px; font:12.5px var(--sans); color:var(--ink); background:#fff; }
+    .search::placeholder { color:var(--faint); }
+
+    /* new-project panel */
+    .newwrap { position:relative; }
+    .newpanel { position:absolute; right:0; top:38px; width:330px; padding:14px; border:1px solid var(--line); background:#fff; box-shadow:0 8px 24px rgba(24,24,27,.12); z-index:6; }
+    .newpanel[hidden] { display:none; }
+    .newpanel label { display:block; font:600 10.5px var(--mono); letter-spacing:.06em; text-transform:uppercase; color:var(--faint); margin:0 0 5px; }
+    .newpanel .row { display:flex; gap:8px; margin-bottom:12px; }
+    .newpanel input[type=text] { flex:1; height:32px; border:1px solid var(--line); border-radius:6px; padding:0 10px; font:12.5px var(--sans); color:var(--ink); min-width:0; }
+    .newpanel .hr { border-top:1px solid var(--line-soft); margin:12px 0; }
+    .newpanel .hint { font:400 11.5px var(--sans); color:var(--faint); margin:-7px 0 12px; }
+    .newpanel .err { font:500 12px var(--sans); color:#8a1f1f; margin-top:6px; }
+
+    table.proj { width:100%; border-collapse:collapse; table-layout:fixed; }
+    table.proj th { text-align:left; font:600 10.5px var(--mono); letter-spacing:.06em; text-transform:uppercase; color:var(--faint); padding:0 10px 10px; border-bottom:1px solid var(--line); }
+    table.proj th.c { text-align:center; }
+    table.proj th.r { text-align:right; }
+    table.proj td { padding:10px; border-bottom:1px solid var(--line-soft); font-size:13.5px; vertical-align:middle; }
+    table.proj th:first-child, table.proj td:first-child { padding-left:0; }
+    table.proj tr:hover td { background:var(--panel); }
+    .ptitle { font-weight:600; color:var(--ink); text-decoration:none; cursor:pointer; background:none; border:0; font:600 13.5px var(--sans); padding:0; text-align:left; }
+    .ptitle:hover { color:var(--accent-strong); }
+    .openchip { display:inline-block; margin-left:8px; font:600 10px var(--mono); letter-spacing:.05em; color:var(--accent-strong); background:var(--accent-soft); border-radius:5px; padding:1px 6px; vertical-align:1px; }
+    .ppath { font:400 11.5px var(--mono); color:var(--faint); overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+    .kchip { display:inline-block; font:600 10.5px var(--mono); color:var(--accent-strong); background:var(--accent-soft); border-radius:5px; padding:2px 7px; margin:0 2px; }
+    .c { text-align:center; }
+    .r { text-align:right; color:var(--muted); white-space:nowrap; }
+    .actions { position:relative; text-align:center; }
+    .rowmenu { width:24px; height:24px; border:0; background:transparent; color:var(--faint); cursor:pointer; font-size:16px; line-height:1; padding:0; }
+    .rowmenu:hover, .rowmenu.on { color:var(--ink); background:var(--line-soft); }
+    .menu { position:fixed; width:158px; padding:5px; border:1px solid var(--line); background:#fff; box-shadow:0 8px 24px rgba(24,24,27,.12); z-index:5; }
+    .menu[hidden] { display:none; }
+    .menu button { display:block; width:100%; border:0; background:transparent; color:var(--ink); text-align:left; padding:6px 8px; font:500 12.5px var(--sans); cursor:pointer; }
+    .menu button:hover { background:var(--panel); }
+    .menu button.danger { color:#8a1f1f; }
+    .empty { color:var(--faint); padding:28px 0; font:400 13px var(--sans); }
+    .offline { color:#8a1f1f; padding:28px 0; font:400 13px var(--sans); }
+
+    @media (max-width:820px) { .shell { grid-template-columns:1fr; } .side { display:none; } .search { width:180px; } }
+  </style>
+</head>
+<body>
+  <nav class="nav">
+    <a class="brand-mark" href="manager.html">Theory<span style="color:var(--accent-strong)">Bench</span></a>
+    <span class="beta-tag"><span class="star">✦</span>beta</span>
+    <span class="spacer"></span>
+    <a class="navlink" href="index.html">Home</a>
+  </nav>
+
+  <div class="shell">
+    <aside class="side">
+      <a href="#" class="active" data-filter="all">All projects <span class="count">0</span></a>
+      <a href="#" data-filter="recent">Recent edits <span class="count">0</span></a>
+      <a href="#" data-filter="archived">Archived <span class="count">0</span></a>
+      <a href="#" data-filter="trash">Trash <span class="count">0</span></a>
+    </aside>
+
+    <main class="main">
+      <div class="head">
+        <span class="head-title" id="headTitle">All projects</span>
+        <span class="spacer"></span>
+        <input class="search" id="projectSearch" type="search" placeholder="Search projects..." />
+        <div class="newwrap">
+          <button class="btn primary" id="newProjectBtn">+ New project</button>
+          <div class="newpanel" id="newPanel" hidden>
+            <label for="npName">Create a blank project</label>
+            <div class="row">
+              <input type="text" id="npName" placeholder="Project name" />
+              <button class="btn primary" id="npCreate">Create</button>
+            </div>
+            <div class="hr"></div>
+            <label for="npPath">Import a local folder</label>
+            <div class="row">
+              <input type="text" id="npPath" placeholder="~/papers/my-paper" />
+              <button class="btn" id="npImport">Import</button>
+            </div>
+            <div class="hint">The folder is opened in place; nothing is copied.</div>
+            <label>Import a .zip</label>
+            <div class="row">
+              <input type="file" id="npZip" accept=".zip" style="font:12px var(--sans);" />
+            </div>
+            <div class="err" id="npError" hidden></div>
+          </div>
+        </div>
+      </div>
+
+      <table class="proj">
+        <colgroup>
+          <col style="width:34%">
+          <col style="width:32%">
+          <col style="width:150px">
+          <col style="width:130px">
+          <col style="width:34px">
+        </colgroup>
+        <thead>
+          <tr>
+            <th>Project</th>
+            <th>Location</th>
+            <th class="c">Kernels</th>
+            <th class="r">Recent edit</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody id="projectRows"></tbody>
+      </table>
+      <div class="empty" id="emptyNote" hidden></div>
+    </main>
+  </div>
+  <script>
+    let activeFilter = 'all';
+    const FILTER_TITLES = { all: 'All projects', recent: 'Recent edits', archived: 'Archived', trash: 'Trash' };
+    let projects = [];
+    let bridgeOk = true;
+    const tbody = document.getElementById('projectRows');
+    const emptyNote = document.getElementById('emptyNote');
+    const search = document.getElementById('projectSearch');
+    const menu = document.createElement('div');
+    menu.className = 'menu';
+    menu.hidden = true;
+    document.body.appendChild(menu);
+    let menuProject = null;
+
+    const esc = s => String(s || '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+
+    function relTime(epochSeconds) {
+      if (!epochSeconds) return '—';
+      const s = Math.max(0, Date.now() / 1000 - epochSeconds);
+      if (s < 90) return 'just now';
+      if (s < 3600) return Math.round(s / 60) + ' min ago';
+      if (s < 86400 * 1.5) return Math.round(s / 3600) + ' h ago';
+      if (s < 86400 * 13) return Math.round(s / 86400) + ' days ago';
+      if (s < 86400 * 60) return Math.round(s / 86400 / 7) + ' weeks ago';
+      return new Date(epochSeconds * 1000).toLocaleDateString();
+    }
+
+    function shortPath(p) {
+      const home = '/Users/' + (p.split('/')[2] || '');
+      return p.startsWith(home) ? '~' + p.slice(home.length) : p;
+    }
+
+    function matchesFilter(p) {
+      if (activeFilter === 'archived') return p.state === 'archived';
+      if (activeFilter === 'trash') return p.state === 'trash';
+      return p.state === 'active' || !p.state;
+    }
+
+    function updateCounts() {
+      const active = projects.filter(p => p.state === 'active' || !p.state).length;
+      const counts = {
+        recent: active,
+        all: active,
+        archived: projects.filter(p => p.state === 'archived').length,
+        trash: projects.filter(p => p.state === 'trash').length,
+      };
+      document.querySelectorAll('.side a[data-filter]').forEach(a => {
+        const c = a.querySelector('.count');
+        if (c) c.textContent = counts[a.dataset.filter] || 0;
+      });
+    }
+
+    function render() {
+      const title = document.getElementById('headTitle');
+      if (title) title.textContent = FILTER_TITLES[activeFilter] || 'Projects';
+      const q = (search.value || '').trim().toLowerCase();
+      let rows = projects.filter(matchesFilter);
+      if (activeFilter === 'all') rows = rows.slice().sort((a, b) => (a.name || '').localeCompare(b.name || ''));
+      if (q) rows = rows.filter(p => ((p.name || '') + ' ' + (p.path || '')).toLowerCase().includes(q));
+      tbody.innerHTML = rows.map(p => `
+        <tr data-id="${esc(p.id)}">
+          <td>
+            <button class="ptitle" data-open="${esc(p.id)}" ${p.exists ? '' : 'disabled title="Folder missing"'}>${esc(p.name)}</button>
+            ${p.open ? '<span class="openchip" title="Open in the workbench — compiles and kernels run on this project">OPEN</span>' : ''}
+            ${(p.live_kernels || []).map(k => `<span class="openchip" title="A live kernel session is holding state for this project">${esc(k)} kernel</span>`).join('')}
+          </td>
+          <td><div class="ppath" title="${esc(p.path)}">${esc(shortPath(p.path))}${p.exists ? '' : ' (missing)'}</div></td>
+          <td class="c">${(p.kernels || []).map(k => `<span class="kchip">${esc(k)}</span>`).join('') || '<span style="color:var(--faint)">—</span>'}</td>
+          <td class="r">${relTime(p.last_edit)}</td>
+          <td class="actions"><button class="rowmenu" data-menu="${esc(p.id)}" title="Project actions" aria-label="Project actions">...</button></td>
+        </tr>`).join('');
+      emptyNote.hidden = rows.length > 0;
+      if (!rows.length) {
+        emptyNote.textContent = bridgeOk
+          ? (projects.length ? 'Nothing here.' : 'No projects yet — create one or import a folder.')
+          : '';
+      }
+      updateCounts();
+    }
+
+    async function api(path, body) {
+      const res = await fetch(path, body === undefined ? {} : {
+        method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify(body),
+      });
+      return res.json();
+    }
+
+    async function load() {
+      try {
+        const data = await api('/api/projects');
+        if (!data.ok) throw new Error(data.error || 'failed');
+        projects = data.projects || [];
+        bridgeOk = true;
+      } catch (e) {
+        bridgeOk = false;
+        projects = [];
+        emptyNote.hidden = false;
+        emptyNote.className = 'empty';
+        emptyNote.innerHTML = 'Your projects live in the TheoryBench app on your computer.<br><br>'
+          + '<a class="btn primary" href="downloads/TheoryBench-mac.zip" style="margin-right:10px">Download TheoryBench</a>'
+          + '<a class="btn" href="project.html?demo=1">Preview the workbench</a>';
+      }
+      render();
+    }
+
+    async function openProject(id) {
+      const data = await api('/api/projects/open', { id });
+      if (!data.ok) { showError(data.error); return; }
+      window.location.href = 'project.html';
+    }
+
+    // --- new-project panel ---
+    const panel = document.getElementById('newPanel');
+    const npError = document.getElementById('npError');
+    function showError(msg) {
+      npError.textContent = msg || 'Something went wrong.';
+      npError.hidden = false;
+      panel.hidden = false;
+    }
+    document.getElementById('newProjectBtn').addEventListener('click', e => {
+      e.stopPropagation();
+      panel.hidden = !panel.hidden;
+      npError.hidden = true;
+      if (!panel.hidden) document.getElementById('npName').focus();
+    });
+    panel.addEventListener('click', e => e.stopPropagation());
+    document.getElementById('npCreate').addEventListener('click', async () => {
+      const name = document.getElementById('npName').value.trim();
+      if (!name) { showError('Give the project a name.'); return; }
+      const data = await api('/api/projects/create', { name });
+      if (!data.ok) { showError(data.error); return; }
+      window.location.href = 'project.html';
+    });
+    document.getElementById('npName').addEventListener('keydown', e => {
+      if (e.key === 'Enter') document.getElementById('npCreate').click();
+    });
+    document.getElementById('npImport').addEventListener('click', async () => {
+      const path = document.getElementById('npPath').value.trim();
+      if (!path) { showError('Enter the folder path to import.'); return; }
+      const data = await api('/api/projects/import', { path });
+      if (!data.ok) { showError(data.error); return; }
+      window.location.href = 'project.html';
+    });
+    document.getElementById('npPath').addEventListener('keydown', e => {
+      if (e.key === 'Enter') document.getElementById('npImport').click();
+    });
+    document.getElementById('npZip').addEventListener('change', async e => {
+      const file = e.target.files && e.target.files[0];
+      if (!file) return;
+      const reader = new FileReader();
+      reader.onload = async () => {
+        const data = await api('/api/projects/import', { zip_name: file.name, data: reader.result });
+        if (!data.ok) { showError(data.error); return; }
+        window.location.href = 'project.html';
+      };
+      reader.readAsDataURL(file);
+    });
+
+    // --- row + menu actions ---
+    function closeMenu() {
+      menu.hidden = true;
+      document.querySelectorAll('.rowmenu.on').forEach(b => b.classList.remove('on'));
+      menuProject = null;
+    }
+    function openMenu(button, project) {
+      if (menuProject && menuProject.id === project.id && !menu.hidden) { closeMenu(); return; }
+      closeMenu();
+      menuProject = project;
+      button.classList.add('on');
+      const trashed = project.state === 'trash';
+      const archived = project.state === 'archived';
+      menu.innerHTML = `
+        ${project.exists && !trashed ? '<button data-action="open">Open</button>' : ''}
+        ${project.exists ? '<button data-action="download">Download .zip</button>' : ''}
+        ${trashed || archived ? '<button data-action="restore">Restore</button>' : '<button data-action="archive">Archive</button>'}
+        ${trashed ? '<button class="danger" data-action="remove">Remove from list</button>' : '<button class="danger" data-action="trash">Move to trash</button>'}
+      `;
+      const rect = button.getBoundingClientRect();
+      menu.style.left = Math.max(8, rect.right - 158) + 'px';
+      menu.style.top = (rect.bottom + 4) + 'px';
+      menu.hidden = false;
+    }
+    tbody.addEventListener('click', e => {
+      const openId = e.target?.dataset?.open;
+      if (openId) { openProject(openId); return; }
+      const menuId = e.target?.dataset?.menu;
+      if (menuId) {
+        e.stopPropagation();
+        const project = projects.find(p => p.id === menuId);
+        if (project) openMenu(e.target, project);
+      }
+    });
+    menu.addEventListener('click', async e => {
+      e.stopPropagation();
+      const action = e.target?.dataset?.action;
+      if (!action || !menuProject) return;
+      const id = menuProject.id;
+      closeMenu();
+      if (action === 'open') return openProject(id);
+      if (action === 'download') { window.location.href = '/api/projects/export?id=' + encodeURIComponent(id); return; }
+      const data = await api('/api/projects/update', { id, action });
+      if (!data.ok) showError(data.error);
+      load();
+    });
+    document.addEventListener('click', () => { closeMenu(); panel.hidden = true; });
+
+    document.querySelectorAll('.side a[data-filter]').forEach(link => {
+      link.addEventListener('click', event => {
+        event.preventDefault();
+        activeFilter = link.dataset.filter;
+        document.querySelectorAll('.side a[data-filter]').forEach(a => a.classList.toggle('active', a === link));
+        render();
+      });
+    });
+    search.addEventListener('input', render);
+    load();
+  </script>
+</body>
+</html>
