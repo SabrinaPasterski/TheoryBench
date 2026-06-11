@@ -16,73 +16,82 @@
   </nav>
 
   <main class="wrap">
-    <h1>Policies and requirements</h1>
+    <h1>Before you download</h1>
     <p class="lede">
-      Private work stays local by default. Export, sync, and model routes should
-      be explicit project choices.
+      TheoryBench runs on your Mac. You choose the folder, the accounts, and
+      what leaves your machine.
     </p>
 
-    <p class="section-label">Local-first policy</p>
+    <p class="section-label">Control what has access</p>
     <div class="grid">
       <div class="card">
-        <h3>Project data</h3>
-        <p>Source, figures, notebooks, outputs, and traces live in your local project folder by
-        default. Overleaf/Git sync can version ordinary paper files; private sidecars are excluded unless you deliberately include them.</p>
+        <h3>Choose a paper folder</h3>
+        <p>Open the TeX, figures, bibliography, and notes you already use.</p>
       </div>
       <div class="card">
-        <h3>Model routing</h3>
-        <p>Claude and Codex use the user's configured account paths. The UI should label when
-        a review used a CLI, API key, or no model route.</p>
+        <h3>Keep working notes local</h3>
+        <p>Review history and notebook outputs stay local unless exported.</p>
       </div>
       <div class="card">
-        <h3>Compute routing</h3>
-        <p>Python and Wolfram execution happens through the local bridge unless a future project
-        explicitly chooses a trusted remote or sandboxed route.</p>
+        <h3>Keep Overleaf in sync</h3>
+        <p>Pull and push paper files while Overleaf remains the shared editor.</p>
       </div>
       <div class="card">
-        <h3>Sharing</h3>
-        <p>Overleaf remains the live collaborator workspace when you connect it. TheoryBench adds local compute,
-        selected traces, compiled artifacts, and read-only bundles when requested.</p>
+        <h3>Choose when AI can read</h3>
+        <p>AI review may send draft or project text to Claude or Codex. Turn it off to keep drafts local.</p>
       </div>
     </div>
 
-    <p class="section-label">Software and license requirements</p>
+    <p class="section-label">What you need installed</p>
     <div class="grid">
       <div class="card">
         <h3>TeX</h3>
         <ul>
-          <li>Requires a local TeX install such as TeX Live or MacTeX.</li>
-          <li>Local package versions can differ from Overleaf.</li>
-          <li>Engine selection and BibTeX/Biber support should be explicit.</li>
+          <li>Install TeX Live or MacTeX.</li>
+          <li>Local packages may differ from Overleaf.</li>
+          <li>The app reports what it finds.</li>
         </ul>
       </div>
       <div class="card">
         <h3>Wolfram</h3>
         <ul>
-          <li>Requires Mathematica, Wolfram Engine, or another configured kernel route.</li>
-          <li>A local license or activation is the user's responsibility.</li>
-          <li>Wolfram Cloud support is a possible route, not the default assumption.</li>
+          <li>Install Mathematica or Wolfram Engine.</li>
+          <li>Use your own local license.</li>
+          <li>Cells run locally.</li>
         </ul>
       </div>
       <div class="card">
         <h3>Python</h3>
         <ul>
-          <li>Uses the local Python environment available to the bridge.</li>
-          <li>Project packages should be reported clearly when missing.</li>
-          <li>Cell state and provenance should stay document-scoped.</li>
+          <li>Uses Python on your machine.</li>
+          <li>Reports missing packages.</li>
+          <li>Keeps outputs with the paper.</li>
         </ul>
       </div>
       <div class="card">
-        <h3>Accounts</h3>
+        <h3>macOS</h3>
         <ul>
-          <li>Overleaf Git or Overleaf GitHub sync is the primary paper collaboration route.</li>
-          <li>GitHub Desktop can manage the local checkout when GitHub sync is used.</li>
-          <li>Claude, Codex/OpenAI, and Wolfram account connections are optional tool routes.</li>
-          <li>OAuth should be scoped to sync or sharing targets, not broad project upload.</li>
-          <li>No account should imply permission to upload or run arbitrary collaborator code.</li>
+          <li>First download: macOS.</li>
+          <li>Other packaging comes later.</li>
+          <li>Demo available now.</li>
         </ul>
       </div>
     </div>
+
+    <p class="section-label">Beta limits</p>
+    <div class="grid">
+      <div class="card">
+        <h3>Overleaf conflicts</h3>
+        <p>If Overleaf and local edits conflict, the app stops before pushing.</p>
+      </div>
+      <div class="card">
+        <h3>Local setup matters</h3>
+        <p>PDFs and computations depend on the tools installed on your Mac.</p>
+      </div>
+    </div>
+    <p class="note">
+      <strong>Early access:</strong> the demo is live. The downloadable app is still being packaged and tested.
+    </p>
   </main>
 
   <footer>

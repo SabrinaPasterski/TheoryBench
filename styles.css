@@ -43,11 +43,11 @@ code { font:12.5px var(--mono); background:var(--accent-soft); color:var(--accen
 .wrap { max-width:860px; width:100%; margin:0 auto; padding:48px 24px 52px; }
 .wrap h1 { margin:0 0 12px; font:700 34px/1.15 var(--sans); letter-spacing:-0.02em; }
 .accent { color:var(--accent-strong); }
-.lede { margin:0; color:var(--muted); font-size:15.5px; line-height:1.6; text-align:justify; }
+.lede { margin:0; color:var(--muted); font-size:15.5px; line-height:1.6; text-align:justify; text-align-last:left; }
 .lede a { color:var(--accent-strong); }
 .cta { display:flex; gap:12px; flex-wrap:wrap; margin-top:24px; }
 .section-label { margin:38px 0 14px; font:700 11px var(--mono); letter-spacing:.09em; text-transform:uppercase; color:var(--accent-strong); }
-.note { margin:18px 0 0; padding:14px 16px; border:1px solid var(--accent-line); border-radius:var(--radius); background:#fbf9ff; color:var(--muted); font-size:13.5px; line-height:1.55; text-align:justify; }
+.note { margin:18px 0 0; padding:14px 16px; border:1px solid var(--accent-line); border-radius:var(--radius); background:#fbf9ff; color:var(--muted); font-size:13.5px; line-height:1.55; text-align:justify; text-align-last:left; }
 .note a, .note strong { color:var(--accent-strong); }
 
 /* Cards / grids */
@@ -55,7 +55,7 @@ code { font:12.5px var(--mono); background:var(--accent-soft); color:var(--accen
 .split { display:grid; grid-template-columns:1fr 1fr; gap:14px; }
 .card { border:1px solid var(--line); border-radius:var(--radius); background:var(--panel); padding:16px 17px; }
 .card h3 { margin:0 0 7px; font:700 15px var(--sans); }
-.card p, .card li { color:var(--muted); font-size:13.5px; line-height:1.55; text-align:justify; }
+.card p, .card li { color:var(--muted); font-size:13.5px; line-height:1.55; text-align:justify; text-align-last:left; }
 .card p { margin:0; }
 .card ul, .split ul { margin:0; padding-left:18px; color:var(--muted); font-size:13.5px; line-height:1.6; }
 
@@ -65,7 +65,7 @@ code { font:12.5px var(--mono); background:var(--accent-soft); color:var(--accen
 .steps li:before { counter-increment:s; content:counter(s); position:absolute; left:0; top:0; width:34px; height:34px; border-radius:9px; background:var(--accent-soft); color:var(--accent-strong); font:700 15px var(--mono); display:grid; place-items:center; }
 .steps li:not(:last-child):after { content:""; position:absolute; left:17px; top:40px; bottom:4px; width:2px; background:var(--accent-line); }
 .steps h3 { margin:6px 0 5px; font:700 15px var(--sans); }
-.steps p { margin:0; color:var(--muted); font-size:13.5px; line-height:1.55; text-align:justify; }
+.steps p { margin:0; color:var(--muted); font-size:13.5px; line-height:1.55; text-align:justify; text-align-last:left; }
 
 /* Index hero + pillars */
 .hero { max-width:1040px; margin:0 auto; padding:56px 24px 24px; display:grid; grid-template-columns:1fr 360px; gap:40px; align-items:center; }
