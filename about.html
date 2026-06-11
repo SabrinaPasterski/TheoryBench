@@ -4,71 +4,22 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>TheoryBench — About</title>
-  <style>
-    :root {
-      --sans:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;
-      --mono:'SF Mono',ui-monospace,Menlo,Consolas,monospace;
-      --bg:#ffffff; --panel:#f8f9fa; --line:#e5e7eb; --line-soft:#f0f0f0;
-      --ink:#18181b; --muted:#52525b; --faint:#71717a;
-      --accent:#5d1fb8; --accent-strong:#46168f; --accent-soft:#efe7fb; --accent-line:#e3d6f6;
-      --star:#ffd34d; --radius:8px;
-    }
-    * { box-sizing:border-box; }
-    body { margin:0; color:var(--ink); font:14px/1.55 var(--sans); background:var(--bg); -webkit-font-smoothing:antialiased; min-height:100vh; display:flex; flex-direction:column; }
-    a { color:inherit; }
-    ::selection { background:rgba(93,31,184,.22); }
-    code { font:12.5px var(--mono); background:var(--accent-soft); color:var(--accent-strong); padding:1px 5px; border-radius:4px; }
-
-    .nav { display:flex; align-items:center; gap:14px; height:52px; padding:0 24px; border-bottom:1px solid var(--line); }
-    .brand-mark { display:inline-flex; align-items:center; color:var(--accent-strong); font:700 16px/1 var(--sans); text-decoration:none; }
-    .beta-tag { display:inline-flex; align-items:center; gap:4px; align-self:center; font:600 9px/1 var(--mono); letter-spacing:.06em; text-transform:uppercase; color:var(--accent); background:var(--accent-soft); padding:3px 6px; border-radius:5px; }
-    .beta-tag .star { color:var(--star); font-size:17px; line-height:.8; transform:translateY(-.5px); }
-    .nav .spacer { flex:1; }
-    .nav a.navlink { color:var(--muted); text-decoration:none; font:500 13px var(--sans); padding:0 4px; }
-    .nav a.navlink:hover { color:var(--ink); }
-
-    .wrap { max-width:900px; width:100%; margin:0 auto; padding:54px 24px 48px; }
-    .wrap h1 { margin:0 0 14px; font:700 38px/1.12 var(--sans); letter-spacing:-0.02em; }
-    .wrap h1 .accent { color:var(--accent-strong); }
-    .wrap .lede { margin:0; font-size:16px; line-height:1.6; color:var(--muted); max-width:64ch; }
-
-    .section-label { margin:42px 0 18px; font:700 11px var(--mono); letter-spacing:.09em; text-transform:uppercase; color:var(--accent-strong); }
-    .grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:14px; }
-    .card { border:1px solid var(--line); border-radius:var(--radius); background:var(--panel); padding:16px 17px; }
-    .card h3 { margin:0 0 7px; font:700 15px var(--sans); }
-    .card p { margin:0; color:var(--muted); font-size:13.5px; line-height:1.55; }
-    .note { margin:18px 0 0; padding:14px 16px; border:1px solid var(--accent-line); border-radius:var(--radius); background:#fbf9ff; color:var(--muted); font-size:13.5px; line-height:1.55; }
-    .steps { list-style:none; counter-reset:s; padding:0; margin:0; }
-    .steps li { position:relative; padding:0 0 24px 58px; }
-    .steps li:before { counter-increment:s; content:counter(s); position:absolute; left:0; top:0; width:34px; height:34px; border-radius:9px; background:var(--accent-soft); color:var(--accent-strong); font:700 15px var(--mono); display:grid; place-items:center; }
-    .steps li:not(:last-child):after { content:""; position:absolute; left:17px; top:40px; bottom:4px; width:2px; background:var(--accent-line); }
-    .steps h3 { margin:6px 0 5px; font:700 15px var(--sans); }
-    .steps p { margin:0; color:var(--muted); font-size:13.5px; line-height:1.55; }
-    .split { display:grid; grid-template-columns:1fr 1fr; gap:14px; }
-    .split ul { margin:0; padding-left:18px; color:var(--muted); font-size:13.5px; line-height:1.6; }
-
-    footer { margin-top:auto; border-top:1px solid var(--line); padding:7px 28px; color:var(--faint); font-size:12px; text-align:center; }
-    footer a { color:var(--faint); text-decoration:none; margin:0 6px; }
-    footer a:hover { color:var(--accent); }
-
-    @media (max-width:700px) { .grid, .split { grid-template-columns:1fr; } }
-    @media (max-width:520px) { .wrap h1 { font-size:30px; } }
-  </style>
+  <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
   <nav class="nav">
     <a class="brand-mark" href="index.html">Theory<span style="color:var(--accent-strong)">Bench</span></a>
     <span class="beta-tag"><span class="star">✦</span>beta</span>
     <span class="spacer"></span>
-    <a class="navlink" href="about.html" aria-current="page" style="color:var(--ink)">About</a>
-    <a class="navlink" href="how-it-works.html">Download</a>
+    <a class="navlink" href="about.html" aria-current="page" style="color:var(--accent-strong)">About</a>
+    <a class="launch" href="coming-soon.html">Launch</a>
   </nav>
 
   <main class="wrap">
     <h1>About <span class="accent">TheoryBench.</span></h1>
     <p class="lede">
       TheoryBench brings a paper draft, PDF preview, computations, references,
-      and Theoria chat into one local-first project room for theoretical physics.
+      and Theoria chat into one local-first workbench for theoretical physics.
     </p>
 
     <p class="section-label">What it is</p>
@@ -87,7 +38,7 @@
       </div>
       <div class="card">
         <h3>A share path</h3>
-        <p>The first sharing target is an inspectable bundle: selected source, assets, traces, and a compiled PDF.</p>
+        <p>Share an inspectable bundle, or connect an Overleaf Git remote when collaborators should keep writing in Overleaf.</p>
       </div>
     </div>
 
@@ -106,11 +57,10 @@
       <div class="card">
         <h3>Shared only by choice</h3>
         <ul>
-          <li>Read-only export bundle first</li>
-          <li>Overleaf import/export or Git sync later</li>
-          <li>Scoped OAuth only for sync targets</li>
-          <li>Separate view, comment, edit, trace, and run permissions</li>
-          <li>No default upload of private project data</li>
+          <li>Read-only export bundles</li>
+          <li>Git-based Overleaf sync from the local app</li>
+          <li>Scoped OAuth and account-based sharing later</li>
+          <li>No upload of private project data by default</li>
         </ul>
       </div>
     </div>
@@ -119,42 +69,41 @@
     <ol class="steps">
       <li>
         <h3>Open a project folder</h3>
-        <p>Start with an existing paper folder or a sample project. TheoryBench reads the source, assets,
-        bibliography files, notes, and sidecars from that folder.</p>
+        <p>Open an existing paper folder or a sample. TheoryBench reads its source, assets,
+        bibliography, and notes.</p>
       </li>
       <li>
         <h3>Check the toolchain</h3>
-        <p>The local bridge reports TeX, Python, Wolfram activation, PDF rendering, and Claude/Codex
-        routes before you rely on them.</p>
+        <p>It reports what's available — TeX, Python, Wolfram, PDF, Claude/Codex — before you rely on it.</p>
       </li>
       <li>
         <h3>Write and compute in context</h3>
-        <p>Use LaTeX as the source of truth, run cells when a derivation needs a check, and promote only
+        <p>LaTeX stays the source of truth; run cells to check a derivation, and promote only
         the results that belong in the paper.</p>
       </li>
       <li>
         <h3>Ask Theoria at the source</h3>
-        <p>Theoria should attach feedback to lines, equations, citations, cells, or trace entries, then
-        push toward the next computation rather than replacing the work.</p>
+        <p>Theoria attaches feedback to specific lines, equations, citations, cells, or trace entries
+        and points toward the next computation rather than replacing the work.</p>
       </li>
       <li>
         <h3>Export deliberately</h3>
-        <p>Share a read-only bundle first. Overleaf sync and OAuth belong to scoped import/export flows,
-        not to remote execution of your local notebook.</p>
+        <p>Share a read-only bundle, or use Overleaf Git sync from the local app. Sync is an import/export
+        flow for ordinary paper files, not remote execution of your local notebook.</p>
       </li>
     </ol>
 
     <p class="section-label">Beta boundary</p>
     <p class="note">
-      The workbench can run locally today, but the login/share workflow is still being hardened:
-      full Overleaf sync, collaborator accounts, remote/sandboxed computation, and the derivation
-      map extractor should be treated as active beta work.
+      You can preview the workbench in the <a href="project.html?demo=1" style="color:var(--accent-strong)">demo</a>
+      right now. <strong>Soon:</strong> a downloadable Mac app to run it locally: edit, compile to PDF, run cells,
+      pull references, get a review from Theoria, and sync an Overleaf Git project. <strong>Later:</strong>
+      account-based collaborator sharing and sandboxed remote computation.
     </p>
   </main>
 
   <footer>
     <a href="about.html">About</a> ·
-    <a href="how-it-works.html">How it Works</a> ·
     <a href="policies.html">Policies</a> ·
     <a href="contact.html">Contact</a>
   </footer>

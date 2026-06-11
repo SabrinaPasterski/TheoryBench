@@ -4,40 +4,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>TheoryBench — Policies</title>
-  <style>
-    :root {
-      --sans:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;
-      --mono:'SF Mono',ui-monospace,Menlo,Consolas,monospace;
-      --bg:#ffffff; --panel:#f8f9fa; --line:#e5e7eb; --line-soft:#f0f0f0;
-      --ink:#18181b; --muted:#52525b; --faint:#71717a;
-      --accent:#5d1fb8; --accent-strong:#46168f; --accent-soft:#efe7fb; --accent-line:#e3d6f6;
-      --star:#ffd34d; --radius:8px;
-    }
-    * { box-sizing:border-box; }
-    body { margin:0; color:var(--ink); font:14px/1.55 var(--sans); background:var(--bg); min-height:100vh; display:flex; flex-direction:column; }
-    a { color:inherit; }
-    .nav { display:flex; align-items:center; gap:14px; height:52px; padding:0 24px; border-bottom:1px solid var(--line); }
-    .brand-mark { display:inline-flex; align-items:center; color:var(--accent-strong); font:700 16px/1 var(--sans); text-decoration:none; }
-    .beta-tag { display:inline-flex; align-items:center; gap:4px; font:600 9px/1 var(--mono); letter-spacing:.06em; text-transform:uppercase; color:var(--accent); background:var(--accent-soft); padding:3px 6px; border-radius:5px; }
-    .beta-tag .star { color:var(--star); font-size:17px; line-height:.8; transform:translateY(-.5px); }
-    .nav .spacer { flex:1; }
-    .nav a.navlink { color:var(--muted); text-decoration:none; font:500 13px var(--sans); padding:0 4px; }
-    .nav a.navlink:hover { color:var(--ink); }
-    .wrap { max-width:860px; width:100%; margin:0 auto; padding:48px 24px 52px; }
-    h1 { margin:0 0 12px; font:700 34px/1.15 var(--sans); letter-spacing:-0.02em; }
-    .lede { margin:0; color:var(--muted); font-size:15.5px; line-height:1.6; max-width:66ch; }
-    .section-label { margin:38px 0 14px; font:700 11px var(--mono); letter-spacing:.09em; text-transform:uppercase; color:var(--accent-strong); }
-    .grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:14px; }
-    .card { border:1px solid var(--line); border-radius:var(--radius); background:var(--panel); padding:16px 17px; }
-    .card h3 { margin:0 0 7px; font:700 15px var(--sans); }
-    .card p, .card li { color:var(--muted); font-size:13.5px; line-height:1.55; }
-    .card p { margin:0; }
-    .card ul { margin:0; padding-left:18px; }
-    footer { margin-top:auto; border-top:1px solid var(--line); padding:7px 28px; color:var(--faint); font-size:12px; text-align:center; }
-    footer a { color:var(--faint); text-decoration:none; margin:0 6px; }
-    footer a:hover { color:var(--accent); }
-    @media (max-width:700px) { .grid { grid-template-columns:1fr; } }
-  </style>
+  <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
   <nav class="nav">
@@ -45,7 +12,7 @@
     <span class="beta-tag"><span class="star">✦</span>beta</span>
     <span class="spacer"></span>
     <a class="navlink" href="about.html">About</a>
-    <a class="navlink" href="how-it-works.html">Download</a>
+    <a class="launch" href="coming-soon.html">Launch</a>
   </nav>
 
   <main class="wrap">
@@ -59,8 +26,8 @@
     <div class="grid">
       <div class="card">
         <h3>Project data</h3>
-        <p>Source, figures, notebooks, outputs, and traces live in the desktop checkout by
-        default. Overleaf/Git sync can version ordinary paper files; private sidecars stay explicit.</p>
+        <p>Source, figures, notebooks, outputs, and traces live in your local project folder by
+        default. Overleaf/Git sync can version ordinary paper files; private sidecars are excluded unless you deliberately include them.</p>
       </div>
       <div class="card">
         <h3>Model routing</h3>
@@ -74,7 +41,7 @@
       </div>
       <div class="card">
         <h3>Sharing</h3>
-        <p>Overleaf handles the live collaborator workspace. TheoryBench adds local compute,
+        <p>Overleaf remains the live collaborator workspace when you connect it. TheoryBench adds local compute,
         selected traces, compiled artifacts, and read-only bundles when requested.</p>
       </div>
     </div>
@@ -120,7 +87,6 @@
 
   <footer>
     <a href="about.html">About</a> ·
-    <a href="how-it-works.html">How it Works</a> ·
     <a href="policies.html">Policies</a> ·
     <a href="contact.html">Contact</a>
   </footer>
